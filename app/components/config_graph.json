@@ -1,0 +1,108 @@
+{
+    "nodes":["action_start","action_provide_address","action_provide_phone_number","action_provide_code_customer",
+        "action_provide_phone_number_confirm","action_provide_code_customer_confirm","action_provide_address_confirm",
+        "action_provide_name","action_provide_name_confirm","action_provide_address_repeat",
+        "not_province_forward","not_provide_province_forward","supported_forward","not_required_forward"],
+
+    "edges":["intent_provide_address", "intent_affirm","intent_fallback","intent_deny_confirm","intent_this_phone",
+        "intent_provide_phone_number", "intent_provide_code_customer","intent_provie_name"],
+
+    "config":{
+
+        "action_start":{
+            "intent_fallback":"action_start",
+            "out":"not_province_forward",
+            "existed":"action_provide_province",
+            "not_existed":"action_start"
+        },
+
+        "action_provide_province":{    
+            "intent_this_phone": "action_provide_phone_number",                
+            "intent_provide_phone_number": "action_provide_phone_number",       
+            "intent_provide_code_customer": "action_provide_code_customer",     
+            "intent_provide_address": "action_provide_address", 
+            
+            "intent_affirm":"action_provide_province",
+            "intent_deny_confirm":"not_required_forward",
+            "intent_fallback":"action_provide_province"
+        },        
+
+
+
+        "action_provide_phone_number":{
+            "intent_this_phone":"action_provide_phone_number_confirm",
+            "intent_provide_phone_number":"action_provide_phone_number_confirm",
+            "intent_fallback":"action_provide_phone_number"
+        },
+        "action_provide_code_customer":{
+            "intent_provide_code_customer":"action_provide_code_customer_confirm",
+            "intent_fallback":"action_provide_code_customer"
+        },
+        "action_provide_address":{
+            "intent_provide_address":"action_provide_address_confirm",
+            "intent_fallback":"action_provide_address"
+        },   
+        
+        
+
+        "action_provide_phone_number_confirm":{
+            "intent_affirm":"action_search",
+            "intent_this_phone":"action_provide_phone_number_confirm",
+            "intent_provide_phone_number":"action_provide_phone_number_confirm",
+            "intent_deny_confirm":"action_provide_phone_number_repeat",
+            "intent_fallback": "action_provide_phone_number_confirm"
+        },
+        "action_provide_code_customer_confirm":{
+            "intent_affirm":"action_search",
+            "intent_provide_code_customer":"action_provide_code_customer_confirm",
+            "intent_deny_confirm":"action_provide_code_customer_repeat",
+            "intent_fallback":"action_provide_code_customer_confirm"
+        },
+        "action_provide_address_confirm":{
+            "intent_affirm":"action_provide_name",
+            "intent_provide_address":"action_provide_address_confirm",
+            "intent_deny_confirm":"action_provide_address_repeat",
+            "intent_fallback":"action_provide_address_confirm"
+        },
+
+
+
+        "action_provide_phone_number_repeat":{
+            "intent_provide_phone_number": "action_provide_phone_number_confirm",
+            "intent_this_phone": "action_provide_phone_number_confirm",
+            "intent_fallback": "action_provide_phone_number_repeat"
+        },
+        "action_provide_code_customer_repeat":{
+            "intent_provide_code_customer": "action_provide_code_customer_confirm",
+            "intent_fallback": "action_provide_code_customer_repeat"
+        },
+        "action_provide_address_repeat":{
+            "intent_provide_address": "action_provide_address_confirm",
+            "intent_fallback":"action_provide_address_repeat"
+        },
+
+
+        "action_provide_name":{
+            "intent_provide_name":"action_provide_name_confirm",
+            "intent_fallback": "action_provide_name"
+        },
+        "action_provide_name_confirm":{
+            "intent_affirm":"action_search",
+            "intent_provide_name":"action_provide_name",
+            "inteny_deny_confirm":"action_provide_name_repeat",
+            "intent_fallback": "action_provide_name_confirm"
+        },
+        "action_provide_name_repeat":{
+            "intent_provide_name":"action_provide_name_confirm",
+            "intent_fallback":"action_provide_name_repeat"
+        },
+
+        "action_search":{
+            "not_existed": "supported_forward",
+            "available": "action_available",
+            "not_deadline": "action_not_deadline",
+            "have_just_paid": "action_have_just_paid"
+        }
+
+    }
+}
