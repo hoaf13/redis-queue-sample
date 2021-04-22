@@ -9,3 +9,4 @@ mod_pages = Blueprint('pages', __name__, url_prefix='/')
 @mod_pages.route("")
 def hello():
     return render_template('pages/index.html')
+
